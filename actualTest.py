@@ -114,8 +114,6 @@ if __name__ == "__main__":
     mp2 = Batcher(num_workers=2)
 
     batch_size = 2
-    # total length over batch size
-    num_jobs = 20 / batch_size
 
     filename = "bla.txt"
     with open(filename, 'rb') as f:
@@ -126,7 +124,6 @@ if __name__ == "__main__":
             
     ret = mp2.process()
     print(ret)
-    # assert len(ret) == num_jobs and all(r == 15 + i for i, r in enumerate(ret))
 
     
 
