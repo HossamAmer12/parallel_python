@@ -105,29 +105,11 @@ class Batcher():
         return results
 
 
+def custom_translate(myList):
+    return str(myList)
+
 # tester/examples
 if __name__ == "__main__":
-    # for _ in range(4):
-    #     mp = Multiprocessor()
-    #     num_jobs = 64
-    #     # we'll just sum 5 numbers a bunch of times
-    #     for _ in range(num_jobs):
-    #         mp.run(sum, [1, 2, 3, 4, 5])
-    #         # mp.run(sum, [1, 1, 1, 1, 1])
-    #     ret = mp.wait()
-    #     print(ret)
-    #     assert len(ret) == num_jobs and all(r == 15 for r in ret)
-
-    # for _ in range(4):
-    #     mp2 = Batcher(num_workers=4)
-    #     num_jobs = 2
-    #     # same, but this time we sum a different set of numbers each time and care about the results' order
-    #     for i in range(num_jobs):
-    #         mp2.enqueue(sum, [1, 2, 3, 4, 5, i])
-    #     ret = mp2.process()
-    #     print(ret)
-    #     assert len(ret) == num_jobs and all(r == 15 + i for i, r in enumerate(ret))
-
 
     mp2 = Batcher(num_workers=2)
 
@@ -137,12 +119,11 @@ if __name__ == "__main__":
 
     filename = "bla.txt"
     with open(filename, 'rb') as f:
-    	# for _batch in iter(lambda: list(map(int, islice(f, batch_size))), ()):
-		# for _batch in iter(lambda: tuple(islice(f, batch_size)), ()):
-		for _batch in iter(lambda: tuple(islice(f, batch_size)), ()):
-			print(_batch)
-			mp2.enqueue(sum, map(int,_batch))
-
+        for _batch in iter(lambda: tuple(islice(f, batch_size)), ()):
+            print(_batch)
+            mp2.enqueue(custom_translate, map(int, _batch))
+            # mp2.enqueue(sum, map(int,_batch))
+            
     ret = mp2.process()
     print(ret)
     # assert len(ret) == num_jobs and all(r == 15 + i for i, r in enumerate(ret))
