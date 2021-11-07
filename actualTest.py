@@ -124,9 +124,3 @@ if __name__ == "__main__":
             
     ret = mp2.process()
     print(ret)
-
-    
-
-# 2. Process the batch in one thread
-
-# 3. Get the results in out queue
